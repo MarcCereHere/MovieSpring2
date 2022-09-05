@@ -21,5 +21,6 @@ public class genreController {
 	public List<EntityGenre> getGen()throws IOException {
 		return genreService.findAllGeneres();
 	}
+	//Test
 	
 }
