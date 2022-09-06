@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS USERS;
 create table users(
                       userid int not null auto_increment,
                       username varchar_ignorecase(50) not null ,
@@ -6,7 +7,7 @@ create table users(
                       enabled boolean not null,
                       primary key (userid)
 );
-
+DROP TABLE IF EXISTS USER_MOVIE;
 create table user_movie(
                            userid int not null,
                            movieid int not null,
@@ -16,10 +17,14 @@ create table user_movie(
                            foreign key (userid) references users(userid)
 );
 
+
+
 INSERT INTO `users` (`username`,`password`,`role`,`enabled`)
 VALUES ('user',
         '$2a$10$XptfskLsT1l/bRTLRiiCgejHqOpgXFreUnNUa35gJdCr2v2QbVFzu',
         'ROLE_USER', 1);
+
+
 
 INSERT INTO `users` (`username`,`password`,`role`,`enabled`)
 VALUES ('admin',

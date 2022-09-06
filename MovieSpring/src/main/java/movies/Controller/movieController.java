@@ -15,6 +15,7 @@ import movies.entities.EntityBackdrops;
 import movies.entities.EntityKeywords;
 import movies.entities.EntityMovies;
 import movies.services.*;
+import service.UserMovieService;
 
 	@RestController
 	public class movieController {
@@ -64,5 +65,11 @@ import movies.services.*;
 			return movieService.getMovierecommendations(movie_id);
 		}
 		
+		/*@GetMapping("api/movie/{movie_id}/favorite")
+		public boolean getFavorite(@PathVariable int movie_id) {
+			
+			return UserMovieService.findFav(0,movie_id);
+		}
+		*/
 		
 	}
