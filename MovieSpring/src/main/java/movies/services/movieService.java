@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import movies.entities.EntityCrew;
 import movies.entities.EntityGenre;
+import movies.entities.EntityImage;
+import movies.entities.EntityKeywords;
 import movies.entities.EntityMovies;
+
 	
 	@Service
 	public class movieService {
@@ -74,18 +78,64 @@ import movies.entities.EntityMovies;
 			 return response;
 		 }
 		 
-		 public EntityMovies getMovieCreditsById(Integer Id) throws IOException{
+		 public List<EntityCrew> getMovieCreditsById(Integer Id) throws IOException{
 			 ObjectMapper mapper = new ObjectMapper();
 			 
 			 URL url = new URL(uri+"movie/" + Id + "/credits?api_key="+apiKey);
 			 
 			 StringBuilder stringBuilder = createStringBuilder(url);
-			 mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY,true);
-			 EntityMovies response = mapper.readValue(stringBuilder.toString(), EntityMovies.class);
+			 EntityCrew[] response  = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("cast").toString(),EntityCrew[].class);
 			 
-			 return response;
+			 return Arrays.asList(response);
 		 }
 		 
+		 public List<EntityImage> getMovieImages(Integer Id) throws IOException{
+			 ObjectMapper mapper = new ObjectMapper();
+			 
+			 URL url = new URL(uri+"movie/" + Id + "/images?api_key="+apiKey);
+
+			 
+			 StringBuilder stringBuilder = createStringBuilder(url);
+			 EntityImage[] response  = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("backdrops").toString(),EntityImage[].class);
+			 
+			 return Arrays.asList(response);
+		 }
+		 
+		 public List<EntityKeywords> getMovieKeywords(Integer Id) throws IOException{
+			 ObjectMapper mapper = new ObjectMapper();
+			 
+			 URL url = new URL(uri+"movie/" + Id + "/keywords?api_key="+apiKey);
+
+			 
+			 StringBuilder stringBuilder = createStringBuilder(url);
+			 EntityKeywords[] response  = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("keywords").toString(),EntityKeywords[].class);
+			 
+			 return Arrays.asList(response);
+		 }
+		 
+		 public List<EntityMovies> getMovierecommendations(Integer Id) throws IOException{
+			 ObjectMapper mapper = new ObjectMapper();
+			 
+			 URL url = new URL(uri+"movie/" + Id + "/recommendations?api_key="+apiKey);
+
+			 
+			 StringBuilder stringBuilder = createStringBuilder(url);
+			 EntityMovies[] response  = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("results").toString(),EntityMovies[].class);
+			 
+			 return Arrays.asList(response);
+		 }
+		 
+		 public List<EntityMovies> getMovieSimilar(Integer Id) throws IOException{
+			 ObjectMapper mapper = new ObjectMapper();
+			 
+			 URL url = new URL(uri+"movie/" + Id + "/similar?api_key="+apiKey);
+
+			 
+			 StringBuilder stringBuilder = createStringBuilder(url);
+			 EntityMovies[] response  = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("results").toString(),EntityMovies[].class);
+			 
+			 return Arrays.asList(response);
+		 }
 	}
 
 

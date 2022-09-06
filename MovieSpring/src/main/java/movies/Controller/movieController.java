@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import movies.entities.EntityCrew;
+import movies.entities.EntityImage;
+import movies.entities.EntityKeywords;
 import movies.entities.EntityMovies;
 import movies.services.*;
 
@@ -34,8 +37,30 @@ import movies.services.*;
 	        return movieService.findMovieById(movie_id);
 	    }
 		
+		
+		
 		@GetMapping("api/movie/{movie_id}/credits")
-		public EntityMovies getMovieCreditsById(@PathVariable Integer movie_id) throws IOException {
-	        return movieService.getMovieCreditsById(movie_id);
-	    }
+		public List<EntityCrew> getMovieCreditsById(@PathVariable Integer movie_id) throws IOException{
+			return movieService.getMovieCreditsById(movie_id);
+		}
+		
+		@GetMapping("api/movie/{movie_id}/images")
+		public List<EntityImage> getMovieImages(@PathVariable Integer movie_id) throws IOException{
+			return movieService.getMovieImages(movie_id);
+		}
+		
+		
+		
+		@GetMapping("api/movie/{movie_id}/keywords")
+		public List<EntityKeywords> getMovieKeywords(@PathVariable Integer movie_id) throws IOException{
+			return movieService.getMovieKeywords(movie_id);
+		}
+		
+		
+		@GetMapping("api/movie/{movie_id}/similar")
+		public List<EntityMovies> getMovierecommendations(@PathVariable Integer movie_id) throws IOException{
+			return movieService.getMovierecommendations(movie_id);
+		}
+		
+		
 	}
