@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import movies.entities.EntityCrew;
-import movies.entities.EntityImage;
+import movies.entities.EntityCast;
+import movies.entities.EntityCastAndCrew;
+import movies.entities.EntityImages;
+import movies.entities.EntityBackdrops;
 import movies.entities.EntityKeywords;
 import movies.entities.EntityMovies;
 import movies.services.*;
@@ -40,12 +42,12 @@ import movies.services.*;
 		
 		
 		@GetMapping("api/movie/{movie_id}/credits")
-		public List<EntityCrew> getMovieCreditsById(@PathVariable Integer movie_id) throws IOException{
+		public List<EntityCastAndCrew> getMovieCreditsById(@PathVariable Integer movie_id) throws IOException{
 			return movieService.getMovieCreditsById(movie_id);
 		}
 		
 		@GetMapping("api/movie/{movie_id}/images")
-		public List<EntityImage> getMovieImages(@PathVariable Integer movie_id) throws IOException{
+		public List<EntityImages> getMovieImages(@PathVariable Integer movie_id) throws IOException{
 			return movieService.getMovieImages(movie_id);
 		}
 		

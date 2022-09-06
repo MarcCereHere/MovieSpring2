@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class EntityImage {
+public class EntityBackdrops {
 	
 	private float aspect_ratio;
 	private int height;
@@ -14,12 +14,12 @@ public class EntityImage {
 	private int vote_count;
 	private int width;
 	
-	public EntityImage() {
+	public EntityBackdrops() {
 		
 	}
 	
 	
-	public EntityImage(float aspect_ratio, int height, String iso_639_1, String file_path, int vote_average,
+	public EntityBackdrops(float aspect_ratio, int height, String iso_639_1, String file_path, int vote_average,
 			int vote_count, int width) {
 		super();
 		this.aspect_ratio = aspect_ratio;

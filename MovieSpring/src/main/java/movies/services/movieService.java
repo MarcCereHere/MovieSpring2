@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import movies.entities.EntityCast;
+import movies.entities.EntityCastAndCrew;
 import movies.entities.EntityCrew;
 import movies.entities.EntityGenre;
-import movies.entities.EntityImage;
+import movies.entities.EntityImages;
+import movies.entities.EntityBackdrops;
 import movies.entities.EntityKeywords;
 import movies.entities.EntityMovies;
+import movies.entities.EntityPosters;
 
 	
 	@Service
@@ -78,25 +82,35 @@ import movies.entities.EntityMovies;
 			 return response;
 		 }
 		 
-		 public List<EntityCrew> getMovieCreditsById(Integer Id) throws IOException{
+		 public List<EntityCastAndCrew> getMovieCreditsById(Integer Id) throws IOException{
 			 ObjectMapper mapper = new ObjectMapper();
 			 
 			 URL url = new URL(uri+"movie/" + Id + "/credits?api_key="+apiKey);
 			 
 			 StringBuilder stringBuilder = createStringBuilder(url);
-			 EntityCrew[] response  = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("cast").toString(),EntityCrew[].class);
-			 
+			 EntityCast[] castresponse  = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("cast").toString(),EntityCast[].class);
+			 EntityCrew[] crewresponse = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("crew").toString(), EntityCrew[].class);
+			 EntityCastAndCrew response = new EntityCastAndCrew();
+			 response.setEntityCast(Arrays.asList(castresponse));
+			 response.setEntityCrew(Arrays.asList(crewresponse));
 			 return Arrays.asList(response);
 		 }
 		 
-		 public List<EntityImage> getMovieImages(Integer Id) throws IOException{
+		 public List<EntityImages> getMovieImages(Integer Id) throws IOException{
 			 ObjectMapper mapper = new ObjectMapper();
 			 
 			 URL url = new URL(uri+"movie/" + Id + "/images?api_key="+apiKey);
 
 			 
 			 StringBuilder stringBuilder = createStringBuilder(url);
-			 EntityImage[] response  = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("backdrops").toString(),EntityImage[].class);
+			 EntityBackdrops[] backresponse  = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("backdrops").toString(),EntityBackdrops[].class);
+			 EntityPosters[] postresponse = mapper.readValue(mapper.readTree(stringBuilder.toString()).get("posters").toString(), EntityPosters[].class);
+			 
+			 
+			 EntityImages response = new EntityImages();
+			 response.setEntityBack(Arrays.asList(backresponse));
+			 response.setEntityPost(Arrays.asList(postresponse));
+			 
 			 
 			 return Arrays.asList(response);
 		 }
